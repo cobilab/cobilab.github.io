@@ -1,0 +1,75 @@
+[
+    {
+        "name": "CPE",
+        "independent_variables": ["d_in"],
+        "dependent_variables": [
+            "t_on",
+            "t_use",
+            "p_cpe",
+            "n_cpe",
+            "cpe_bandwidth"
+        ],
+        "normal_model": "(d_in/cpe_bandwidth)*(t_on/t_use)*(p_cpe/n_cpe)"
+    },
+    {
+        "name": "AN",
+        "independent_variables": ["d_in"],
+        "dependent_variables": [
+            "p_an",
+            "n_an",
+            "an_bandwidth",
+            "pue_an"
+        ],
+        "normal_model": "(d_in/an_bandwidth)*(p_an/n_an)*pue_an"
+    },
+    {
+        "name": "Server Write",
+        "independent_variables": [
+            "d_in"
+        ],
+        "dependent_variables": [
+            "p_server",
+            "p_server_switch",
+            "p_disk",
+            "server_bandwidth",
+            "server_switch_bandwidth",
+            "disk_bandwidth",
+            "disk_size",
+            "pue_server",
+            "compression_time_cost",
+            "compression_rate"
+        ],
+        "normal_model": "((d_in/server_bandwidth)*(p_server) + (d_in/server_switch_bandwidth)*p_server_switch + (d_in/disk_bandwidth)*p_disk*Math.ceil(d_in/disk_size))*pue_server",
+        "compressed_model": "((d_in/compression_rate + (d_in*compression_time_cost)/compression_rate)*p_server/server_bandwidth + (d_in/server_switch_bandwidth)*p_server_switch + (d_in/disk_bandwidth)*p_disk*Math.ceil(d_in/disk_size))*pue_server"
+    },
+    {
+        "name": "Server Store",
+        "independent_variables": [
+            "d_in"
+        ],
+        "dependent_variables": [
+            "p_disk",
+            "disk_size",
+            "retention_time",
+            "pue_server"
+        ],
+        "normal_model": "pue_server*Math.ceil(d_in/disk_size)*p_disk*retention_time"
+    },
+    {
+        "name": "Server Read",
+        "independent_variables": [
+            "d_in"
+        ],
+        "dependent_variables": [
+            "p_server",
+            "p_server_switch",
+            "server_bandwidth",
+            "server_switch_bandwidth",
+            "download_rate",
+            "retention_time",
+            "pue_server"
+        ],
+        "normal_model": "pue_server*(download_rate*retention_time)*(p_server/server_bandwidth + p_server_switch/server_switch_bandwidth)"
+    }
+]
+  
