@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/ecompress/static/css/main.c19741f0.css",
-    "main.js": "/ecompress/static/js/main.a3f6159c.js",
+    "main.js": "/ecompress/static/js/main.776b28a8.js",
     "static/media/diogo_pratas.png": "/ecompress/static/media/diogo_pratas.c4cdf37b7e600e1327eb.png",
     "static/media/dinis_lei.jpg": "/ecompress/static/media/dinis_lei.d35cd5ef617c69de32e9.jpg",
     "static/media/armando_pinho.jpeg": "/ecompress/static/media/armando_pinho.cb9646828b8c4091642e.jpeg",
     "static/media/denis_yamunaque.jpeg": "/ecompress/static/media/denis_yamunaque.dae74daefe909a8260a0.jpeg",
     "index.html": "/ecompress/index.html",
     "main.c19741f0.css.map": "/ecompress/static/css/main.c19741f0.css.map",
-    "main.a3f6159c.js.map": "/ecompress/static/js/main.a3f6159c.js.map"
+    "main.776b28a8.js.map": "/ecompress/static/js/main.776b28a8.js.map"
   },
   "entrypoints": [
     "static/css/main.c19741f0.css",
-    "static/js/main.a3f6159c.js"
+    "static/js/main.776b28a8.js"
   ]
 }
