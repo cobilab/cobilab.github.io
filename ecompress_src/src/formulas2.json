@@ -1,0 +1,122 @@
+[
+    {
+        "id": "upload",
+        "models": [
+            {
+                "name": "Upload",
+                "independent_variables": [
+                    "d_in"
+                ],
+                "dependent_variables": [
+                    "p_server",
+                    "p_server_switch",
+                    "p_disk",
+                    "server_bandwidth",
+                    "server_switch_bandwidth",
+                    "disk_bandwidth",
+                    "disk_size",
+                    "pue_server",
+                    "compression_time_cost",
+                    "compression_rate"
+                ],
+                "normal_model": "((d_in/server_bandwidth)*(p_server) + (d_in/server_switch_bandwidth)*p_server_switch + (d_in/disk_bandwidth)*p_disk*Math.ceil(d_in/disk_size))*pue_server",
+                "compressed_model": "((d_in/server_bandwidth + d_in*compression_time_cost)*(p_server) + ((d_in/compression_rate)/server_switch_bandwidth)*p_server_switch + ((d_in/compression_rate)/disk_bandwidth)*p_disk*Math.ceil((d_in/compression_rate)/disk_size))*pue_server"
+            }
+        ]
+    },
+    {
+        "id": "storage",
+        "models": [
+            {
+                "name": "Server Store",
+                "independent_variables": [
+                    "d_in"
+                ],
+                "dependent_variables": [
+                    "p_disk",
+                    "disk_size",
+                    "retention_time",
+                    "pue_server",
+                    "compression_rate"
+                ],
+                "normal_model": "pue_server*Math.ceil(d_in/disk_size)*p_disk*retention_time",
+                "compressed_model": "pue_server*Math.ceil((d_in/compression_rate)/disk_size)*p_disk*retention_time"
+            }
+        ]
+    },
+    {
+        "id": "download",
+        "models": [
+            {
+                "name": "Server Read",
+                "independent_variables": [
+                    "d_in"
+                ],
+                "dependent_variables": [
+                    "p_server",
+                    "p_server_switch",
+                    "server_bandwidth",
+                    "server_switch_bandwidth",
+                    "download_rate",
+                    "retention_time",
+                    "pue_server",
+                    "compression_rate"
+                ],
+                "normal_model": "pue_server*(d_in)*(p_server/server_bandwidth + p_server_switch/server_switch_bandwidth)",
+                "compressed_model": "pue_server*(d_in/compression_rate)*(p_server/server_bandwidth + p_server_switch/server_switch_bandwidth)"
+            },
+            {
+                "name": "CPE",
+                "independent_variables": ["d_in"],
+                "dependent_variables": [
+                    "t_on",
+                    "t_use",
+                    "p_cpe",
+                    "n_cpe",
+                    "download_rate",
+                    "compression_rate"
+                ],
+                "normal_model": "(d_in/download_rate)*(t_on/t_use)*(p_cpe/n_cpe)",
+                "compressed_model": "(d_in/compression_rate/download_rate)*(t_on/t_use)*(p_cpe/n_cpe)"
+                
+            },
+            {
+                "name": "AN",
+                "independent_variables": ["d_in"],
+                "dependent_variables": [
+                    "p_an",
+                    "n_an",
+                    "download_rate",
+                    "pue_an",
+                    "compression_rate"
+                ],
+                "normal_model": "(d_in/download_rate)*(p_an/n_an)*pue_an",
+                "compressed_model": "(d_in/compression_rate/download_rate)*(p_an/n_an)*pue_an"
+            },
+            {
+                "name": "Edge Network",
+                "independent_variables": ["d_in"],
+                "dependent_variables": [
+                    "en_power_per_gb",
+                    "compression_rate"
+                ],
+                "normal_model": "d_in*en_power_per_gb",
+                "compressed_model": "d_in/compression_rate*en_power_per_gb"
+            },
+            {
+                "name": "User Side",
+                "independent_variables": ["d_in"],
+                "dependent_variables": [
+                    "decompression_time_cost",
+                    "download_rate",
+                    "compression_rate",
+                    "avg_user_power",
+                    "n_users_downloading"
+                ],
+                "normal_model": "(d_in/download_rate)*avg_user_power",
+                "compressed_model": "avg_user_power*(((d_in/compression_rate)/download_rate) + decompression_time_cost*d_in)"
+            }
+        ]
+    }
+]
+  
